@@ -1,0 +1,61 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Intercoding</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding *ngIf="ejercicio">
+
+  <ion-card>
+
+
+    <ion-card-content>
+
+      <div [ngSwitch]="ejercicio.grado_dificultad" style="margin-top: 15px !important">
+
+        <h3 *ngSwitchCase="3">
+          <span class="dificultad red">{{ejercicio.grado_dificultad}}</span> {{ ejercicio.titulo }}</h3>
+        <h3 *ngSwitchCase="2">
+          <span class="dificultad green">{{ejercicio.grado_dificultad}}</span> {{ ejercicio.titulo }}</h3>
+        <h3 *ngSwitchCase="1">
+          <span class="dificultad blue">{{ejercicio.grado_dificultad}}</span> {{ ejercicio.titulo }}</h3>
+
+      </div>
+
+      <h4>Detalle del Problema</h4>
+      <hr>
+      <p>{{ejercicio.descripcion}}</p>
+
+      <h4>Ejemplo</h4>
+      <hr>
+      <p>{{ejercicio.ejemplo}}</p>
+
+    </ion-card-content>
+
+    <ion-item padding>
+
+        <button ion-button icon-start color="verde" item-end>
+          Iniciar
+        </button>
+
+        <button ion-button icon-start color="verde" item-end>
+          Consultar
+        </button>
+
+        <button ion-button icon-start color="verde" item-end>
+          Entregar
+        </button>
+
+        <button ion-button icon-start color="verde" item-end>
+          Reelección
+        </button>
+
+    </ion-item>
+
+  </ion-card>
+
+
+</ion-content>

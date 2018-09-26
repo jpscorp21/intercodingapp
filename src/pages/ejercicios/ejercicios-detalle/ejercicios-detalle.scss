@@ -1,0 +1,68 @@
+page-ejercicios-detalle {
+
+  button {
+    padding: 18px 15px !important;
+  }
+
+  ion-card-content {
+
+    h3 {
+      font-weight: 600 !important;
+      margin-bottom: 16px !important;
+      font-size: 2.2rem !important;
+    }
+
+    h4 {
+      font-weight: 600 !important;
+      font-size: 1.7rem !important;
+      margin-top: 30px !important;
+      border-bottom: 1px solid #777;
+    }
+
+    hr {
+      color: #333 !important;
+    }
+
+    span.dificultad {
+      color: white;
+      font-weight: bold;
+      border-radius: 50%;
+      padding: 8px 15.5px;
+      margin: auto;
+      width: 30px !important;
+      height: 30px !important;
+
+    }
+
+    span.dificultad.red {
+      background-color: color($colors, danger);
+    }
+
+    span.dificultad.blue {
+      background-color: color($colors, primary);
+    }
+
+    span.dificultad.green {
+      background-color: color($colors, secondary);
+    }
+
+    p {
+      font-size: 1.6rem !important;
+      line-height: 0.7cm !important;
+    }
+
+    p.descripcion {
+      color: #666;
+    }
+
+  }
+
+  @media only screen and (min-width: 800px) {
+    ion-card {
+
+      width: 60% !important;
+      margin: 30px auto !important;
+
+    }
+  }
+}
