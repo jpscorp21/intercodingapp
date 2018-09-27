@@ -9,12 +9,18 @@ page-login {
     font-family: "Montserrat";
   }
 
-  @media only screen and (min-width: 900px) {
+  ion-input {
+    border-bottom: 1px solid #333 !important;
+  }
+
+  @media only screen and (min-width: 600px) {
     ion-card {
 
-      width: 50% !important;
+      width: 500px !important;
       margin: 30px auto !important;
 
     }
   }
+
+
 }

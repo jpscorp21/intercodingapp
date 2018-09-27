@@ -42,7 +42,7 @@ ion-content {
 
 img.small {
   margin-top: 20px !important;
-  width: 30%;
+  width: 35%;
   border-radius: 50%;
   margin: auto;
 }
@@ -137,4 +137,8 @@ p.descripcion {
 .fadeIn {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }

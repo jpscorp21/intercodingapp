@@ -58,7 +58,7 @@ $toolbar-ios-background: color($colors, primary);
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 $toolbar-md-background: color($colors, primary);
-
+$text-input-md-highlight-color: #fff;
 
 
 // App Windows Variables
@@ -74,6 +74,11 @@ $toolbar-md-background: color($colors, primary);
 // then be future customized. This import comes last
 // so that the above variables are used and Ionic's
 // default are overridden.
+$text-input-highlight-color-valid:	#fff;
+
+
+$text-input-highlight-color-invalid:	#fff;
+
 
 @import "ionic.theme.default";
 
