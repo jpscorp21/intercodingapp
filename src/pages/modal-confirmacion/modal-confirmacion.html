@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>Mensaje del Sistema</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="cerrar()">
+      <button ion-button icon-only (click)="cancelar()">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
@@ -24,9 +24,13 @@
   <p>
     Estas seguro de elegir este ejercicio?
   </p>
-  <div padding>
-    <button ion-button (click)="aceptar()" color="primary" block>Aceptar</button>
-    <button ion-button (click)="cancelar()" color="primary" block>Cancelar</button>
+  <div padding-left padding-right>
+    <button ion-button (click)="aceptar()" color="primary" full>Aceptar</button>
   </div>
+  <br>
+  <div padding-left padding-right>
+    <button ion-button (click)="cancelar()" color="primary" full>Cancelar</button>
+  </div>
+
 
 </ion-content>

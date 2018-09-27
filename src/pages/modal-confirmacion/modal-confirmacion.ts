@@ -18,16 +18,12 @@ export class ModalConfirmacionPage {
     console.log('ionViewDidLoad ModalConfirmacionPage');
   }
 
-  cerrar() {
-    this._view.dismiss();
-  }
-
   aceptar() {
-
+    this._view.dismiss(true)
   }
 
   cancelar() {
-
+    this._view.dismiss();
   }
 
 }
