@@ -32,7 +32,6 @@ export class EjerciciosListaPage {
     this._ejercicios.buscarEstado(usuario, cod_categoria).toPromise()
     .then((data: any) => {
       if (data.length != 0) {
-        console.log(data);
         this.navCtrl.setRoot('EjerciciosDetallePage', {ejercicio: data[0], mensaje: 'reanudar'});
       } else {
 
@@ -120,9 +119,6 @@ export class EjerciciosListaPage {
       } else if (tipo == "reeleccion") {
         console.log('reeleccion');
       }
-
-
-
 
 
     })

@@ -11,7 +11,7 @@ export class StaffService {
 
   validarJurado(usuario, password) {
 
-    return this.http.post(`http://localhost:3000/validar/entregar/`, {usuario, password})
+    return this.http.post(`http://localhost:3000/staff/validar`, {usuario, password})
     .toPromise().then((data) => data);
 
   }

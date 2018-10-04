@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { StaffService } from '../../services/staff/staff.service';
 
-/**
- * Generated class for the ModalFormularioPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -21,6 +16,7 @@ export class ModalFormularioPage {
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
+              public staff: StaffService,
               public navParams: NavParams) {
 
     this.accion = this.navParams.data.accion;
@@ -30,14 +26,21 @@ export class ModalFormularioPage {
     console.log('ionViewDidLoad ModalFormularioPage');
   }
 
-  aceptar() {
-
-    if (this.accion == 'consultar') {
-      this.viewCtrl.dismiss('DES');
-    } else if(this.accion == 'entregar') {
-      this.viewCtrl.dismiss('TER');
+  async aceptar() {
+    const resultado =  await this.validarJurado();
+    if (resultado) {
+      if (this.accion == 'consultar') {
+        this.viewCtrl.dismiss('DES');
+      } else if(this.accion == 'entregar') {
+        this.viewCtrl.dismiss('TER');
+      }
     }
 
+  }
+
+  async validarJurado() {
+    const resultado = await this.staff.validarJurado(this.usuario, this.password);
+    return resultado;
   }
 
   cancelar() {

@@ -7,5 +7,6 @@ export class Ejercicios {
   descripcion: string = "";
   ejemplo: string = "";
   cod_categoria: number = 0;
+  estado: string = "";
 
 }

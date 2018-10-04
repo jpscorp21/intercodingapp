@@ -24,8 +24,11 @@ export class EjerciciosDetallePage {
               public staff: StaffService,
               public ejerciciosService: EjerciciosService) {
 
-    this.estado = this.navParams.data.ejercicio.estado;
 
+    if (this.navParams.data.ejercicio) {
+      this.estado = this.navParams.data.ejercicio.estado;
+      console.log(this.estado);
+    }
 
     if (this.navParams.data.mensaje) {
       if (this.estado !== 'LEC') {
@@ -35,6 +38,7 @@ export class EjerciciosDetallePage {
     }
 
     if (this.navParams.data.ejercicio) {
+
       this.ejercicio = this.navParams.data.ejercicio;
       if (this.estado === 'NOL') {
         this.actualizarEstado('LEC');
