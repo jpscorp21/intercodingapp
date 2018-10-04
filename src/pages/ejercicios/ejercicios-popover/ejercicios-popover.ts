@@ -5,7 +5,6 @@ import { ViewController, IonicPage, NavParams } from "ionic-angular";
 @Component({
   template: `
   <ion-list>
-    <button ion-item (click)="closeOpcion('contrato')">Configuración</button>
     <button ion-item (click)="closeOpcion('salir')">Salir</button>
   </ion-list>
   `

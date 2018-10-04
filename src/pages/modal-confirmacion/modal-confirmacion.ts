@@ -9,13 +9,18 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class ModalConfirmacionPage {
 
+  mensaje: string = "";
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public _view: ViewController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalConfirmacionPage');
+
+    this.mensaje = this.navParams.data.mensaje;
+    console.log(this.mensaje);
+
   }
 
   aceptar() {

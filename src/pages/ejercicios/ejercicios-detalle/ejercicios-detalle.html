@@ -2,6 +2,11 @@
 
   <ion-navbar>
     <ion-title>Intercoding</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -9,19 +14,26 @@
 
 <ion-content padding *ngIf="ejercicio">
 
-  <ion-card>
+  <ion-card class="animated fadeIn">
 
 
     <ion-card-content>
 
-      <div [ngSwitch]="ejercicio.grado_dificultad" style="margin-top: 15px !important">
 
-        <h3 *ngSwitchCase="3">
-          <span class="dificultad red">{{ejercicio.grado_dificultad}}</span> {{ ejercicio.titulo }}</h3>
-        <h3 *ngSwitchCase="2">
-          <span class="dificultad green">{{ejercicio.grado_dificultad}}</span> {{ ejercicio.titulo }}</h3>
-        <h3 *ngSwitchCase="1">
-          <span class="dificultad blue">{{ejercicio.grado_dificultad}}</span> {{ ejercicio.titulo }}</h3>
+
+        <div [ngSwitch]="ejercicio.grado_dificultad">
+          <div *ngSwitchCase="3">
+            <div class="dificultad">Alta</div>
+            <h3>{{ ejercicio.titulo }}</h3>
+          </div>
+          <div *ngSwitchCase="2">
+            <div class="dificultad green">Media</div>
+            <h3>{{ ejercicio.titulo }}</h3>
+          </div>
+          <div *ngSwitchCase="1">
+            <div class="dificultad blue">Baja</div>
+            <h3>{{ ejercicio.titulo }}</h3>
+          </div>
 
       </div>
 
@@ -37,21 +49,36 @@
 
     <ion-item padding>
 
-        <button ion-button icon-start color="verde" item-end>
-          Iniciar
-        </button>
+      <ion-row>
+        <ion-col col-sm-6 col-md-3>
 
-        <button ion-button icon-start color="verde" item-end>
-          Consultar
-        </button>
+          <button ion-button icon-start color="verde" item-end block (click)="iniciar()" [disabled]="iniciado">
+            Iniciar
+          </button>
 
-        <button ion-button icon-start color="verde" item-end>
-          Entregar
-        </button>
+        </ion-col>
+        <ion-col col-sm-6 col-md-3>
 
-        <button ion-button icon-start color="verde" item-end>
-          Reelección
-        </button>
+          <button ion-button icon-start color="verde" item-end block [disabled]="!iniciado" (click)="consultar()">
+            Consultar
+          </button>
+        </ion-col>
+        <ion-col col-sm-6 col-md-3>
+          <button ion-button icon-start color="verde" item-end block [disabled]="!iniciado" (click)="entregar()">
+            Entregar
+          </button>
+
+        </ion-col>
+        <ion-col col-sm-6 col-md-3>
+
+          <button ion-button icon-start color="verde" item-end block  (click)="reeleccion()">
+            Reelección
+          </button>
+        </ion-col>
+      </ion-row>
+
+
+
 
     </ion-item>
 

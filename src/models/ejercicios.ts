@@ -1,5 +1,6 @@
 export class Ejercicios {
 
+  cod_aleatorio: number = 0;
   cod_ejercicio: number = 0;
   grado_dificultad: number = 0;
   titulo: string = "";

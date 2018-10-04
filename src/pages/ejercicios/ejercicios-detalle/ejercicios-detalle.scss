@@ -14,8 +14,9 @@ page-ejercicios-detalle {
 
     h4 {
       font-weight: 600 !important;
-      font-size: 1.7rem !important;
+      font-size: 1.9rem !important;
       margin-top: 30px !important;
+      padding-bottom: 5px;
       border-bottom: 1px solid #777;
     }
 
@@ -23,31 +24,37 @@ page-ejercicios-detalle {
       color: #333 !important;
     }
 
-    span.dificultad {
-      color: white;
-      font-weight: bold;
-      border-radius: 50%;
-      padding: 8px 15.5px;
-      margin: auto;
-      width: 30px !important;
-      height: 30px !important;
+    div.dificultad {
 
+      color: white !important;
+      letter-spacing: 0.5px;
+      float: left;
+      margin-right: 12px;
+      width: 55px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-align: center;
+      vertical-align: 10px;
+      font-size: 15px !important;
+      font-weight: bold;
+      box-shadow: 2px 2px #aaa;
+      background: red;
     }
 
-    span.dificultad.red {
+    div.dificultad.red {
       background-color: color($colors, danger);
     }
 
-    span.dificultad.blue {
-      background-color: color($colors, primary);
+    div.dificultad.blue {
+      background-color: color($colors, primary3);
     }
 
-    span.dificultad.green {
-      background-color: color($colors, secondary);
+    div.dificultad.green {
+      background-color: color($colors, verde);
     }
 
     p {
-      font-size: 1.6rem !important;
+      font-size: 1.8rem !important;
       line-height: 0.7cm !important;
     }
 
@@ -60,7 +67,7 @@ page-ejercicios-detalle {
   @media only screen and (min-width: 800px) {
     ion-card {
 
-      width: 60% !important;
+      width: 720px !important;
       margin: 30px auto !important;
 
     }

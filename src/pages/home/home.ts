@@ -22,4 +22,8 @@ export class HomePage {
     this.navCtrl.setRoot('LenguajesListaPage');
   }
 
+  goToPaises() {
+    this.navCtrl.setRoot('PaisesListaPage');
+  }
+
 }

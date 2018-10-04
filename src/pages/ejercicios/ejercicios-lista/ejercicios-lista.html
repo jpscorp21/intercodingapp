@@ -40,24 +40,16 @@
 
 
                 </div>
-
-
-            <p class="descripcion">{{ eje.descripcion | suspensivo: 150}}</p>
           </ion-col>
           <ion-col col-12 col-sm-12 col-md-3>
               <ion-item>
 
-                <button ion-button icon-start item-end (click)="alerta(eje)" block>
+                <button ion-button icon-start item-end (click)="botonVerEjercicio(eje)" block>
                   <ion-icon name="eye"></ion-icon> Ver ejercicio
                 </button>
 
               </ion-item>
 
-              <ion-item>
-                <button ion-button icon-start item-end (click)="openModal(eje)" block>
-                  <ion-icon name="eye"></ion-icon> Reelección
-                </button>
-              </ion-item>
             </ion-col>
           </ion-row>
           </ion-card-content>

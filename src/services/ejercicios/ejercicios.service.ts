@@ -9,11 +9,24 @@ export class EjerciciosService {
 
   constructor(private http: HttpClient) {}
 
-  getAll() {
+  getAllByDificultad(grado_dificultad, cantidad, cod_categoria, usuario) {
 
-    return this.http.get('http://localhost:3000/api/v1/ejercicios')
-          .map((data: any) => data.data)
+    return this.http.get(`http://localhost:3000/ejercicios/all/${usuario}/${cod_categoria}/${grado_dificultad}/${cantidad}`)
+  }
 
+  updateEstado(estado, id) {
+
+    return this.http.put(`http://localhost:3000/ejercicios/estado`, {estado, id});
+  }
+
+  buscarEstado(usuario, cod_categoria) {
+
+    return this.http.post(`http://localhost:3000/ejercicios/search/estado`, {usuario, cod_categoria});
+  }
+
+  getEjercicioReanudar(grado_dificultad, cod_categoria, usuario) {
+
+    return this.http.get(`http://localhost:3000/ejercicios/reanudar/${usuario}/${cod_categoria}/${grado_dificultad}`);
   }
 
 }

@@ -1,24 +1,34 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import 'rxjs/add/operator/map';
-import { NavController } from 'ionic-angular';
+
 
 @Injectable()
 export class AuthService {
 
-  readonly URL = 'http://localhost:3000/api/v1';
+  private isLogin: boolean = false;
 
-  constructor(private http: HttpClient,
-              ) {}
+  constructor(private http: HttpClient) {}
 
   login(obj) {
 
-    return this.http.post('http://localhost:3000/api/v1/login', obj).toPromise();
+    return this.http.post('http://localhost:3000/concursantes/login', obj)
+    .do((data) => {
+      this.isLogin = true;
+    }).toPromise()
 
   }
 
   goLogin() {
     //this.navCtrl.setRoot('LoginPage');
+  }
+
+  logout() {
+    this.isLogin = false;
+  }
+
+  authenticated() {
+    return this.isLogin;
   }
 
 }

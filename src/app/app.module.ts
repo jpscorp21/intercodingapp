@@ -6,7 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { FormsModule } from '../../node_modules/@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //SERVICIOS
 import { CodigoService } from '../services/codigo/codigo.service';
@@ -16,6 +15,10 @@ import { AuthService } from '../services/auth/auth.service';
 //INTERCEPTORES
 import { TokenInterceptor } from '../services/auth/token.interceptor';
 import { JwtInterceptor } from '../services/auth/jwt.interceptor';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PaisesService } from '../services/paises/paises.service';
+import { StaffService } from '../services/staff/staff.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { JwtInterceptor } from '../services/auth/jwt.interceptor';
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     CodigoService,
     EjerciciosService,
-    AuthService
+    AuthService,
+    PaisesService,
+    StaffService
   ]
 })
 export class AppModule {}

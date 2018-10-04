@@ -19,7 +19,8 @@ export class LoginPage {
               private _auth: AuthService) {
     this.initForm();
 
-    localStorage.removeItem('intToken');
+    localStorage.removeItem('USER_APP');
+    this._auth.logout();
   }
 
   ionViewDidLoad() {
@@ -41,23 +42,15 @@ export class LoginPage {
         usuario: this.ngForm.value.usuario,
         password: this.ngForm.value.password
       }).then((data: any) => {
-
-        if (data) {
-
-          console.log(data.data);
-          localStorage.setItem('intToken', data.data);
+          console.log(data);
+          localStorage.setItem('USER_APP', JSON.stringify(data));
           this.navCtrl.setRoot('InicioPage');
 
-        }
-
-
       }).catch((error) => {
-        this.showToast(error.error.message);
+        this.showToast('El usuario no esta registrado en la base de datos');
       });
 
     }
-
-    console.log(this.ngForm.value);
   }
 
 
