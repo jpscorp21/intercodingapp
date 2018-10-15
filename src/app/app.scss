@@ -142,3 +142,28 @@ p.descripcion {
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
+
+//TOAST ESTILOS
+.toast-info {
+  .toast-wrapper {
+    background-color: color($colors, primary);;
+  }
+}
+
+.toast-warning {
+  .toast-wrapper {
+    background-color: color($colors, dark);
+  }
+}
+
+.toast-danger {
+  .toast-wrapper {
+    background-color: color($colors, danger);
+  }
+}
+
+.toast-success {
+  .toast-wrapper {
+    background-color: color($colors, secondary);
+  }
+}

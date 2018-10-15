@@ -17,6 +17,10 @@ import { AuthService } from '../../services/auth/auth.service';
 export class InicioPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService) {
+    if (!JSON.parse(localStorage.getItem('USER_APP'))) {
+      this.navCtrl.setRoot('LoginPage');
+      return;
+    }
   }
 
   ionViewDidLoad() {

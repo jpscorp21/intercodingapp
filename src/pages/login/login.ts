@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '../../../node_modules/@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
+import { DataService } from '../../services/util/data.service';
 
 
 @IonicPage()
@@ -15,6 +16,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private dataService: DataService,
               public _toast: ToastController,
               private _auth: AuthService) {
     this.initForm();
@@ -42,27 +44,19 @@ export class LoginPage {
         usuario: this.ngForm.value.usuario,
         password: this.ngForm.value.password
       }).then((data: any) => {
-          console.log(data);
+        if (data) {
           localStorage.setItem('USER_APP', JSON.stringify(data));
           this.navCtrl.setRoot('InicioPage');
+        } else {
+          this.dataService.error('El usuario no esta registrado en la base de datos');
+        }
 
       }).catch((error) => {
-        this.showToast('El usuario no esta registrado en la base de datos');
+        if (error.statusText === "Unknown Error") this.dataService.error('Problemas en el servidor');
+        else this.dataService.error('El usuario no esta registrado en la base de datos');
       });
 
     }
   }
 
-
-  showToast(mensaje: string) {
-
-    let toast = this._toast.create({
-      message: mensaje,
-      position: 'bottom',
-      duration: 3000
-    })
-
-    toast.present();
-
-  }
 }

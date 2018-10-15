@@ -1,0 +1,29 @@
+progress-bar {
+
+  .container {
+    width: 50%;
+    margin: auto;
+  }
+
+  #progreso {
+    width: 100%;
+    background-color: #ccc;
+
+  }
+
+  #barra {
+
+    width: 1%;
+    height: 25px;
+    background-color: color($colors, primary);
+
+    .label {
+      position: absolute;
+      color: black;
+      left: 50%;
+      top: 3%;
+      transform: translateX(-50%);
+    }
+  }
+
+}

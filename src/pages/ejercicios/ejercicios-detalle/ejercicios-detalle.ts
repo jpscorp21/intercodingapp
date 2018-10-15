@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ModalController, LoadingController } from 'ionic-angular';
 import { Ejercicios } from '../../../models/ejercicios';
 import { EjerciciosService } from '../../../services/ejercicios/ejercicios.service';
-import { AuthService } from '../../../services/auth/auth.service';
 import { StaffService } from '../../../services/staff/staff.service';
-
+import 'rxjs/add/operator/last';
+import { Subscription } from '../../../../node_modules/rxjs/Subscription';
 @IonicPage()
 @Component({
   selector: 'page-ejercicios-detalle',
@@ -15,37 +15,52 @@ export class EjerciciosDetallePage {
   ejercicio: Ejercicios;
   iniciado: boolean = false;
   estado: string = "";
+  loadingCorrigiendo: any;
+  subscriptor: Subscription;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private auth: AuthService,
               private _popover: PopoverController,
               private _modal: ModalController,
               public staff: StaffService,
+              public loading: LoadingController,
               public ejerciciosService: EjerciciosService) {
 
 
-    if (this.navParams.data.ejercicio) {
-      this.estado = this.navParams.data.ejercicio.estado;
-      console.log(this.estado);
+    this.crearLoading();
+
+    if (!this.navParams.data.ejercicio) {
+      this.navCtrl.setRoot('EjerciciosListaPage');
+      return;
     }
 
-    if (this.navParams.data.mensaje) {
-      if (this.estado !== 'LEC') {
-        this.iniciado = true;
+    this.estado = this.navParams.data.ejercicio.estado;
+    this.ejercicio = this.navParams.data.ejercicio;
+    console.log(this.estado);
+
+    // cuando llega la correcion del jurado
+    this.subscriptor = this.ejerciciosService.getVerificadoSocket().subscribe((data: any) => {
+
+      console.log(data);
+
+      if (data.cod_aleatorio === this.ejercicio.cod_aleatorio ) {
+
+        this.detenerLoading();
+        if (data.estado == "TER") this.navCtrl.setRoot('EjerciciosListaPage');
+        //if (data.estado == "DES") this.actualizarEstado(data.estado);
       }
+
+    })
+
+    // en caso de mensaje de reanudar
+    if (this.navParams.data.mensaje) {
+      this.iniciado = this.estado !== 'LEC';
       this.reanudarEjercicio();
     }
 
-    if (this.navParams.data.ejercicio) {
-
-      this.ejercicio = this.navParams.data.ejercicio;
-      if (this.estado === 'NOL') {
-        this.actualizarEstado('LEC');
-      }
-    } else {
-      this.navCtrl.setRoot('EjerciciosListaPage');
-    }
+    // comprobar estados
+    if (this.estado === 'NOL') this.actualizarEstado('LEC');
+    if (this.estado == 'COR') this.iniciarLoading();
 
   }
 
@@ -128,8 +143,11 @@ export class EjerciciosDetallePage {
       }
 
       if (accion == 'entregar') {
-        this.ejerciciosService.updateEstado('REV', this.ejercicio.cod_aleatorio).toPromise()
-        .then((data) => this.openModalForm(accion));
+        this.ejerciciosService.updateEstado('COR', this.ejercicio.cod_aleatorio).toPromise()
+        .then((data) => {
+          this.ejerciciosService.entregarEjercicioSocket(this.ejercicio.cod_aleatorio)
+          this.iniciarLoading();
+        });
       }
 
     })
@@ -159,6 +177,36 @@ export class EjerciciosDetallePage {
   actualizarEstadoYSalir(estado) {
     this.ejerciciosService.updateEstado(estado, this.ejercicio.cod_aleatorio).toPromise()
     .then((data) => this.navCtrl.setRoot('EjerciciosListaPage'));
+  }
+
+  crearLoading() {
+    this.loadingCorrigiendo = this.loading.create({
+      spinner: 'hide',
+      content: 'Esperando...'
+    });
+  }
+
+  detenerLoading() {
+    if (this.loadingCorrigiendo){
+      this.loadingCorrigiendo.dismiss();
+      this.loadingCorrigiendo = null;
+    }
+  }
+
+  iniciarLoading() {
+    this.crearLoading();
+    this.loadingCorrigiendo.present();
+    setTimeout(() => this.detenerLoading(), 5000);
+  }
+
+  ionViewDidLeave() {
+    if (this.subscriptor) {
+      this.subscriptor.unsubscribe();
+    }
+  }
+
+  ionViewWillLeave() {
+
   }
 
 }

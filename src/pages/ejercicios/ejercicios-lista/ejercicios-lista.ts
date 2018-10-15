@@ -12,43 +12,31 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class EjerciciosListaPage {
 
-  ejercicios: Ejercicios[];
+  ejercicios: Ejercicios[] = [];
   source: string = "";
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private auth: AuthService,
               private _ejercicios: EjerciciosService,
               private _alert: AlertController,
               private _modal: ModalController,
               private _popover: PopoverController) {
-    this.ejercicios = [];
   }
 
   ionViewDidLoad() {
 
-    const concursante: any = JSON.parse(localStorage.getItem('USER_APP')).concursante;
-    const {cod_categoria, usuario} = concursante;
-    this._ejercicios.buscarEstado(usuario, cod_categoria).toPromise()
-    .then((data: any) => {
-      if (data.length != 0) {
-        this.navCtrl.setRoot('EjerciciosDetallePage', {ejercicio: data[0], mensaje: 'reanudar'});
-      } else {
-
-        this.fetchEjerciciosByDificultad("3", "2", cod_categoria, usuario);
-        this.fetchEjerciciosByDificultad("2", "3", cod_categoria, usuario);
-        this.fetchEjerciciosByDificultad("1", "5", cod_categoria, usuario);
-      }
-    })
+    this.iniciarEjercicios();
 
   }
 
   async fetchEjerciciosByDificultad(grado_difiucultad, cantidad, cod_categoria, usuario) {
     await this._ejercicios.getAllByDificultad(grado_difiucultad, cantidad, cod_categoria, usuario).toPromise()
     .then((data: any) => {
-        data.forEach((item) => {
-          this.ejercicios.push(item);
-        })
+        if (data) {
+          data.forEach((item) => {
+            this.ejercicios.push(item);
+          })
+        }
       })
     }
 
@@ -95,15 +83,11 @@ export class EjerciciosListaPage {
     })
   }
 
-  botonReeleccion() {
-    this.openModal("Estas seguro que deseas cambiar este ejercicio?", 'reeleccion');
-  }
-
   botonVerEjercicio(eje: Ejercicios) {
-    this.openModal("Estas seguro de ver este ejercicio?", 'ver' ,eje);
+    this.openModal("Estas seguro de ver este ejercicio?", eje);
   }
 
-  openModal(mensaje, tipo, eje?: Ejercicios) {
+  openModal(mensaje, eje?: Ejercicios) {
     let modal = this._modal.create('ModalConfirmacionPage',
       { mensaje: mensaje },
       {  cssClass: 'inset-modal' });
@@ -114,12 +98,7 @@ export class EjerciciosListaPage {
 
       if (!value) return;
 
-      if (tipo == "ver") {
-        this.navCtrl.setRoot("EjerciciosDetallePage", {ejercicio: eje});
-      } else if (tipo == "reeleccion") {
-        console.log('reeleccion');
-      }
-
+      this.navCtrl.setRoot("EjerciciosDetallePage", {ejercicio: eje});
 
     })
   }
@@ -128,8 +107,30 @@ export class EjerciciosListaPage {
     console.log("Reeleccion")
   }
 
-  /*ionViewCanEnter() {
-    return this.auth.authenticated();
-  }*/
+  async iniciarEjercicios() {
+
+    if (!JSON.parse(localStorage.getItem('USER_APP'))) {
+      this.navCtrl.setRoot('LoginPage');
+      return;
+    }
+
+    const concursante: any = JSON.parse(localStorage.getItem('USER_APP')).concursante;
+
+    const {cod_categoria, usuario} = concursante;
+
+    this._ejercicios.buscarEstado(usuario, cod_categoria).toPromise()
+    .then(async (data: any) => {
+      if (data.length != 0) {
+        console.log(data);
+        this.navCtrl.setRoot('EjerciciosDetallePage', {ejercicio: data[0], mensaje: 'reanudar'});
+      } else {
+
+        //Operaciones asincronas
+        await this.fetchEjerciciosByDificultad("3", "2", cod_categoria, usuario);
+        await this.fetchEjerciciosByDificultad("2", "3", cod_categoria, usuario);
+        await this.fetchEjerciciosByDificultad("1", "5", cod_categoria, usuario);
+      }
+    })
+  }
 
 }

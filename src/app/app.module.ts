@@ -19,6 +19,9 @@ import { JwtInterceptor } from '../services/auth/jwt.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PaisesService } from '../services/paises/paises.service';
 import { StaffService } from '../services/staff/staff.service';
+import { AppConfig } from './app.config';
+import { ToastService } from '../services/util/toast.service';
+import { DataService } from '../services/util/data.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { StaffService } from '../services/staff/staff.service';
     EjerciciosService,
     AuthService,
     PaisesService,
-    StaffService
+    StaffService,
+    ToastService,
+    DataService,
+    AppConfig
   ]
 })
 export class AppModule {}
